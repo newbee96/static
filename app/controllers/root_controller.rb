@@ -7,10 +7,12 @@ class RootController < ApplicationController
 
   caches_page :template, :raw_template
 
-  def raw_template
-    file_path = Rails.root.join("app", "views", "root", "#{params[:template]}.raw.html.erb")
-    error_404 and return unless File.exists?(file_path)
-    render :text => File.read(file_path)
+  def raw_root_template
+    render_raw_template("root", params[:template])
+  end
+
+  def raw_govuk_component_template
+    render_raw_template("govuk_component", params[:template])
   end
 
   NON_LAYOUT_TEMPLATES = %w(
@@ -32,6 +34,12 @@ class RootController < ApplicationController
   end
 
   private
+
+  def render_raw_template(prefix, file_name)
+    file_path = Rails.root.join("app", "views", prefix, "#{file_name}.raw.html.erb")
+    error_404 and return unless File.exists?(file_path)
+    render :text => File.read(file_path)
+  end
 
   def validate_template_param
     # Allow alphanumeric and _ in template filenames.
