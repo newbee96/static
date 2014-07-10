@@ -1,0 +1,13 @@
+.govuk-page-title {
+  h1 {
+    @include heading-48;
+    font-weight: 600;
+
+    span.sub-title {
+      @include core-27($line-height: 1);
+      display: block;
+      margin-bottom: 0.25em;
+      color: $secondary-text-colour;
+    }
+  }
+}
