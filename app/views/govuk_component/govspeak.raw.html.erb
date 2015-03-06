@@ -1,6 +1,8 @@
 <%
+  direction ||= direction
+
   direction_class = ""
-  direction_class = " direction-#{direction}" if local_assigns.include?(:direction)
+  direction_class = " direction-#{direction}" if direction
 %>
 <div class="govuk-govspeak<%= direction_class %>">
   <%= raw content %>

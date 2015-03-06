@@ -5,10 +5,12 @@
   part_of ||= []
   part_of = Array(part_of)
 
+  history ||= nil
+  direction ||= nil
   other ||= nil
 
   direction_class = ""
-  direction_class = " direction-#{direction}" if local_assigns.include?(:direction)
+  direction_class = " direction-#{direction}" if direction
 %>
 <div class="govuk-metadata<%= direction_class %>">
   <dl>
@@ -16,7 +18,7 @@
       <dt><%= t("govuk_component.metadata.from", default: "From") %>:</dt>
       <dd><%= from.to_sentence.html_safe %></dd>
     <% end %>
-    <% if local_assigns.include?(:history) %>
+    <% if history %>
       <dt>History:</dt>
       <dd><%= history %></dd>
     <% end %>
