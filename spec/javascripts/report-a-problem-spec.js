@@ -69,9 +69,9 @@ describe("form submission for reporting a problem", function () {
     describe("clicking on the toggle", function(){
       it("should toggle the visibility of the form", function() {
         expect($form).toBeVisible();
-        $('a').click();
+        $('.js-report-a-problem-toggle').click();
         expect($form).toBeHidden();
-        $('a').click();
+        $('.js-report-a-problem-toggle').click();
         expect($form).toBeVisible();
       });
     });
