@@ -5,11 +5,39 @@
   var ReportAProblem = function ($container) {
     this.$container = $container;
     var $form = $container.find('form'),
-        form = new GOVUK.ReportAProblemForm($form);
+        form = new GOVUK.ReportAProblemForm($form),
+        renderOriginal = this.renderOriginal.bind(this),
+        renderVariant = this.renderVariant.bind(this);
 
-    this.addToggleLink();
     $form.on('reportAProblemForm.success', this.showConfirmation.bind(this));
     $form.on('reportAProblemForm.error', this.showError.bind(this));
+
+    if (ReportAProblem.isBeingTestedOnThisPage()) {
+      this.multivariateTest = new GOVUK.MultivariateTest({
+        name: 'report-a-problem-redesign-ab-test',
+        contentExperimentId: "SnpcHld1SJuQig-_SsaN_Q",
+        cohorts: {
+          variant_0: {variantId: 0, callback: renderOriginal},
+          variant_1: {variantId: 1, callback: renderVariant}
+        }
+      });
+    } else {
+      renderOriginal();
+    }
+
+  };
+
+  ReportAProblem.isBeingTestedOnThisPage = function() {
+    return true;
+  };
+
+  ReportAProblem.prototype.renderOriginal = function() {
+    this.addToggleLink();
+  };
+
+  ReportAProblem.prototype.renderVariant = function() {
+    console.log('variant runs');
+    this.addToggleLink();
   };
 
   ReportAProblem.prototype.addToggleLink = function() {
