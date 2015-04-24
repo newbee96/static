@@ -33,10 +33,7 @@
 
   ReportAProblem.prototype.renderOriginal = function() {
     this.addToggleLink();
-  };
-
-  ReportAProblem.prototype.renderVariant = function() {
-    this.addToggleLink();
+    // TODO: add toggle analytics
   };
 
   ReportAProblem.prototype.addToggleLink = function() {
@@ -46,6 +43,51 @@
           <a href="" class="js-report-a-problem-toggle">Is there anything wrong with this page?</a>\
         </p>\
       </div>');
+  };
+
+  ReportAProblem.prototype.renderVariant = function() {
+    this.removeOriginalFormParts();
+    this.addVariantFormParts();
+    this.addToggleRadioButtons();
+
+    // TODO: add yes/no analytics events
+    // TODO: hide yes/no on selection?
+    // TODO: change form action?
+  };
+
+  ReportAProblem.prototype.addToggleRadioButtons = function() {
+    this.$container.before('\
+      <div class="report-a-problem-toggle-wrapper js-footer">\
+        <div class="report-a-problem-toggle">\
+          <p>Was this page useful?<p>\
+          <form>\
+            <fieldset class="inline">\
+              <label class="block-label selectable" for="yes-was-useful">\
+               <input class="js-report-a-problem-toggle" id="yes-was-useful" type="radio" name="was-this-useful" value="Yes">\
+                  Yes\
+              </label>\
+              <label class="block-label selectable" for="no-not-useful">\
+                <input class="js-report-a-problem-toggle" id="no-not-useful" type="radio" name="was-this-useful" value="No">\
+                  No\
+              </label>\
+            </fieldset>\
+          </form>\
+        </div>\
+      </div>');
+  };
+
+  ReportAProblem.prototype.removeOriginalFormParts = function() {
+    this.$container.find('.js-original-variant').remove();
+  };
+
+  ReportAProblem.prototype.addVariantFormParts = function() {
+    this.$container.find('form').prepend('\
+      <h2>Thanks. Your feedback has been recorded.</h2>\
+      <label for="how-could-we-improve">How could we improve this page?</label>\
+      <textarea id="how-could-we-improve" name="how-could-we-improve"></textarea>\
+      <p>This is anonymous feedback. Don’t include personal or financial information.</p>\
+      <p>We can’t reply to this form. If you want a reply, use the <a href="/contact">contact form</a> to send your questions or comments about the website.</p>\
+    ');
   };
 
   ReportAProblem.prototype.toggleForm = function(evt) {
