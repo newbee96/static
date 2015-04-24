@@ -73,8 +73,14 @@
   };
 
   OptionSelect.prototype.close = function close(){
-    this.$optionSelect.addClass('js-closed');
+    if (this.isClosable()){
+      this.$optionSelect.addClass('js-closed');
+    }
   };
+
+  OptionSelect.prototype.isClosable = function isClosable(){
+    return !this.$options.is(":checked");
+  }
 
   OptionSelect.prototype.isClosed = function isClosed(){
     return this.$optionSelect.hasClass('js-closed');

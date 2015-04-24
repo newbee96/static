@@ -114,11 +114,21 @@ describe('GOVUK.OptionSelect', function() {
   });
 
   describe('close', function(){
-    it('closes the option-select', function(){
+    it('closes the option-select if closeable is true', function(){
+      spyOn(optionSelect, "isClosable").and.returnValue(true);
+
       optionSelect.open();
       expect(optionSelect.isClosed()).toBe(false);
       optionSelect.close();
       expect(optionSelect.isClosed()).toBe(true);
+    });
+
+    it('does not close option-select if closeable is false', function(){
+      spyOn(optionSelect, "isClosable").and.returnValue(false);
+      optionSelect.open();
+      expect(optionSelect.isClosed()).toBe(false);
+      optionSelect.close();
+      expect(optionSelect.isClosed()).toBe(false);
     });
   });
 
